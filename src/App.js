@@ -1,14 +1,16 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import Header from './components/Header';
-import HomePage from './views';
+import "bootstrap/dist/css/bootstrap.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import Header from "./components/Header";
+import HomePage from "./views";
 
 function App() {
   return (
-    <>
-    <Header/>
-
-    <HomePage/>
-    </>
+    <div>
+      <Header />
+      <HomePage />
+      <ToastContainer />
+    </div>
   );
 }
 
