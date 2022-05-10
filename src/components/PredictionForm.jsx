@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Col, Container, Form, Input, Label, Row } from "reactstrap";
 import getRequiredDataApi from "../services/getRequiredData";
+import predictSalesApi from "../services/predictSelesApi";
 import PreductionReasultModel from "./PreductionReasultModel";
 
 // Function to verify form
@@ -87,6 +88,26 @@ const PredictionForm = () => {
     if (!isVerified) {
       toast.error(message);
       return;
+    }
+
+    // Predict salses
+
+    try {
+      const responseData = await predictSalesApi({
+        item_fat_content: parseInt(itemFatContent),
+        item_type: parseInt(itemType),
+        item_mrp: parseInt(itemMrp),
+        outlet_establishment_year: parseInt(year),
+        outlet_size: parseInt(outletSize),
+        outlet_location_type: parseInt(location),
+        outlet_type: parseInt(outletType),
+      });
+
+      console.log(responseData, " This is response data");
+    } catch (e) {
+      if (e?.response?.data?.message) {
+        toast.error(e.response.data.message);
+      } else toast.error("Something went wrong so please try again later");
     }
   }
 
@@ -193,7 +214,7 @@ const PredictionForm = () => {
                 </option>
 
                 {requiredData &&
-                  requiredData.outlet_size.map((data, index) => (
+                  requiredData.outlet_type.map((data, index) => (
                     <option key={index} value={data[0]}>
                       {data[1]}
                     </option>

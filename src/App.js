@@ -9,7 +9,7 @@ function App() {
     <div>
       <Header />
       <HomePage />
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }
